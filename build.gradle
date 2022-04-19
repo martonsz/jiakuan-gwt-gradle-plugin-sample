@@ -1,0 +1,30 @@
+plugins {
+    id "org.wisepersist.gwt" version "1.1.18"
+    id "org.gretty" version "3.0.7"
+}
+
+repositories {
+    mavenCentral()
+}
+
+apply plugin: 'war'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
+}
+
+gwt {
+    gwtVersion='2.9.0'
+    modules 'com.mycompany.mywebapp.MyWebApp'
+}
+
+gretty {
+    servletContainer = 'tomcat9'
+    httpPort = getRandomFreePort()
+    httpsPort = getRandomFreePort()
+    contextPath = "/mywebapp"
+
+    extraResourceBase "${projectDir}/build/gwt/draftOut"
+}
